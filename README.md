@@ -1,26 +1,26 @@
-# Parabank_playwright
+# Parabank Playwright Automation Framework
 
+## Description
+This is a Playwright + Pytest automation framework for testing the Parabank website:
+https://parabank.parasoft.com/parabank/index.htm
 
-parabank_automation/
-│
-├── conftest.py
-├── pytest.ini
-├── requirements.txt
-├── .gitignore
-├── README.md
-│
-├── utils/
-│   └── logger.py
-│
-├── pages/
-│   ├── login_page.py
-│   └── registration_page.py
-│
-├── tests/
-│   ├── test_login.py
-│   ├── test_registration.py
-│   └── test_account_validation.py
-│
-├── logs/
-├── reports/
-└── screenshots/
+## Features
+- ✅ Page Object Model (POM) structure
+- ✅ Reusable fixtures
+- ✅ HTML Reporting with `pytest-html`
+- ✅ Screenshot capture on test failures
+- ✅ Detailed logging for every test
+
+## Folder Structure
+- `pages/` - Page classes
+- `tests/` - Test cases
+- `utils/` - Logger
+- `logs/` - Log files
+- `screenshots/` - Failure screenshots
+- `reports/` - HTML reports
+
+## Installation
+1. Install dependencies:
+```bash
+pip install -r requirements.txt
+playwright install

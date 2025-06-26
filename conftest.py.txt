@@ -1,0 +1,32 @@
+import pytest
+import os
+from playwright.sync_api import sync_playwright
+
+@pytest.fixture(scope="session")
+def browser():
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False)
+        yield browser
+        browser.close()
+
+@pytest.fixture
+def page(browser):
+    context = browser.new_context()
+    page = context.new_page()
+    yield page
+    context.close()
+
+# Screenshot on Failure
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item):
+    outcome = yield
+    report = outcome.get_result()
+
+    if report.when == "call" and report.failed:
+        page = item.funcargs.get("page", None)
+        if page:
+            screenshot_dir = "screenshots"
+            os.makedirs(screenshot_dir, exist_ok=True)
+            filename = f"{item.name}.png"
+            path = os.path.join(screenshot_dir, filename)
+            page.screenshot(path=path)
